@@ -9,10 +9,15 @@ import java.rmi.server.UnicastRemoteObject;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import javax.sql.DataSource;
+import org.springframework.context.ApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 import prodi.Prodi;
-import prodi.ProdiService;
 import tools.Koneksi;
 
 /**
@@ -22,15 +27,39 @@ import tools.Koneksi;
 public class ProdiServiceServer extends UnicastRemoteObject implements ProdiService {
     
     private JdbcTemplate jdbcTemplate = Koneksi.getJdbcTemplate();
+    
+    // untuk transaction
+    private ApplicationContext context = Koneksi.getContext();
+    private DataSource dataSource = (DataSource)context.getBean("dataSource");
+    private PlatformTransactionManager transactionManager = (PlatformTransactionManager)context.getBean("transactionManager");
+    private TransactionDefinition transactionDefinition;
+    private TransactionStatus status;
 
     public ProdiServiceServer() throws RemoteException {
     }
 
+    public DataSource getDataSource() {
+        return dataSource;
+    }
+
+    public PlatformTransactionManager getTransactionManager() {
+        return transactionManager;
+    }
+    
     @Override
     public Prodi create(Prodi p) throws RemoteException {
         String sql = "INSERT INTO tbl_prodi (IdFakultas, KodeProdi, NamaProdi, StatusProdi, Akreditasi, TglBerdiri, Keterangan) "
                     + "VALUES(?, ?, ?, ?, ?, ?, ?)";
-        jdbcTemplate.update(sql, p.getIdFakultas(),p.getKodeProdi(),p.getNamaProdi(),p.getStatusProdi(),p.getAkreditasi(),p.getTglBerdiri(),p.getKeterangan());
+        transactionDefinition = new DefaultTransactionDefinition();
+        status = transactionManager.getTransaction(transactionDefinition);
+        try {
+            jdbcTemplate.update(sql, p.getIdFakultas(),p.getKodeProdi(),p.getNamaProdi(),p.getStatusProdi(),p.getAkreditasi(),p.getTglBerdiri(),p.getKeterangan());
+            p.setIdProdi(jdbcTemplate.queryForInt("select max(IdProdi) from tbl_prodi"));
+            transactionManager.commit(status);
+        } catch (Exception e) {
+            transactionManager.rollback(status);
+            System.out.println(e);
+        }
         return p;
     }
 

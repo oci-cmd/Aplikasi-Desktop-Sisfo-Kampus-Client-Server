@@ -9,6 +9,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import service.master.FakultasServiceServer;
 import service.master.ProdiServiceServer;
 
 /**
@@ -24,6 +25,8 @@ public class Main {
         try {
             // Port = 123
             Registry server = LocateRegistry.createRegistry(123);
+            FakultasServiceServer fakServer = new FakultasServiceServer();
+            server.rebind("fakultas", fakServer);
             ProdiServiceServer prodiServer = new ProdiServiceServer();
             server.rebind("prodi", prodiServer);
             

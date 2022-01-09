@@ -9,7 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import prodi.FrameProdi;
+
 
 /**
  *
@@ -29,8 +29,9 @@ public class Main {
         
         java.awt.EventQueue.invokeLater(new Runnable() {
 
+            @Override
             public void run() {
-                new FrameProdi().setVisible(true);
+                new FrameLogin().setVisible(true);
             }
         });
         

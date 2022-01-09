@@ -6,7 +6,6 @@ package tools;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.rmi.AccessException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -15,7 +14,8 @@ import java.util.MissingResourceException;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import prodi.ProdiService;
+import service.master.FakultasService;
+import service.master.ProdiService;
 
 /**
  *
@@ -23,6 +23,7 @@ import prodi.ProdiService;
  */
 public class KonekToServer {
     private static Registry registry;
+    private static FakultasService fakultasService;
     private static ProdiService prodiService;
 
     public static Registry getRegistry() {
@@ -46,6 +47,17 @@ public class KonekToServer {
             Logger.getLogger(KonekToServer.class.getName()).log(Level.SEVERE, null, ex);
         } 
         return prodiService;
+    }
+    
+    public static FakultasService getFakultasService() {
+        try {
+            fakultasService = (FakultasService) getRegistry().lookup("fakultas");
+        } catch (RemoteException ex) {
+            Logger.getLogger(KonekToServer.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NotBoundException ex) {
+            Logger.getLogger(KonekToServer.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        return fakultasService;
     }
     
     private static String getUrl(String key) {

@@ -23,7 +23,7 @@ public class ServerDialog extends javax.swing.JDialog {
         initComponents();
         setLocationRelativeTo(null);
         setResizable(false);
-        setTitle("Server Bengkel");
+        setTitle("Server Sisfo Kampus");
         setIconImage(new ImageIcon(getClass().getResource("/resource/black-server.png")).getImage());
     }
 

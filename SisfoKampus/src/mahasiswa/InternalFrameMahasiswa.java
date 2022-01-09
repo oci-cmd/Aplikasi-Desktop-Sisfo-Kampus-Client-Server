@@ -4,37 +4,25 @@
  */
 
 /*
- * InternalFrameProdi.java
+ * InternalFrameMahasiswa.java
  *
- * Created on Dec 20, 2021, 4:29:41 PM
+ * Created on Aug 13, 2021, 9:23:55 AM
  */
-package prodi;
+package mahasiswa;
 
-import javax.swing.JTable;
-import javax.swing.RowFilter;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import javax.swing.table.TableModel;
-import javax.swing.table.TableRowSorter;
 import main.CrudPanel;
-import tools.CustomizeSwing;
 
 /**
  *
  * @author Rosidin
  */
-public class InternalFrameProdi extends javax.swing.JInternalFrame {
-    private ProdiTableModel tableModel = new ProdiTableModel();
-    private ProdiUnitDialog dlg = new ProdiUnitDialog(this);
-    private ProdiController controller = new ProdiController(this, dlg);
+public class InternalFrameMahasiswa extends javax.swing.JInternalFrame {
+    private MahasiswaUnitDialog mhsDlg = new MahasiswaUnitDialog(this);
+    private MahasiswaController controller = new MahasiswaController(this, mhsDlg);
 
-    /** Creates new form InternalFrameProdi */
-    public InternalFrameProdi() {
-        initComponents();  
-        initVariables();
-    }
-    
-    private void initVariables() {        
+    /** Creates new form InternalFrameMahasiswa */
+    public InternalFrameMahasiswa() {
+        initComponents();
         // tutup windows
         setClosable(true);
         // ukuran maksimal windows
@@ -43,56 +31,15 @@ public class InternalFrameProdi extends javax.swing.JInternalFrame {
         setResizable(true);
         // minimize windows
         setIconifiable(true);
-        setTitle("Data Program Studi");
-        // buat action listener untuk button baru
+        setTitle("Data Mahasiswa");
+        // untuk klik tambah data
         crudPanel.getButtonBaru().addActionListener(controller);
-        // buat action listener untuk button edit
-        crudPanel.getButtonEdit().addActionListener(controller);  
-        // buat action listener untuk button hapus
-        crudPanel.getButtonHapus().addActionListener(controller);
-        // buat action listener untuk button refresh
-        crudPanel.getButtonRefresh().addActionListener(controller);  
-        controller.refreshController();
-        tableData.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        TableRowSorter sorter = new TableRowSorter(tableModel);
-        tableData.setRowSorter(sorter);
-        tableData.setModel(tableModel);     
-        textCari.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                filterTable(textCari.getText().trim());
-            }
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                filterTable(textCari.getText().trim());
-            }
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                filterTable(textCari.getText().trim());
-            }
-        });
-    }
-    
-    @SuppressWarnings("unchecked")
-    public void filterTable(String text) {
-        if (text.trim().equalsIgnoreCase("")) {
-            ((TableRowSorter<TableModel>) tableData.getRowSorter()).setRowFilter(null);
-        } else {
-            ((TableRowSorter<TableModel>) tableData.getRowSorter()).setRowFilter(RowFilter.regexFilter("(?i)"+text));
-        }
-        CustomizeSwing.autoResizeColumn(tableData);
+        // untuk klik ubah data
+        crudPanel.getButtonEdit().addActionListener(controller);
     }
 
     public CrudPanel getCrudPanel() {
         return crudPanel;
-    }
-
-    public JTable getTableData() {
-        return tableData;
-    }
-
-    public ProdiTableModel getTableModel() {
-        return tableModel;
     }
     
 
@@ -106,8 +53,8 @@ public class InternalFrameProdi extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         crudPanel = new main.CrudPanel();
-        textCari = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
+        textCari = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableData = new javax.swing.JTable();
 
@@ -132,15 +79,15 @@ public class InternalFrameProdi extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 453, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 539, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textCari, javax.swing.GroupLayout.DEFAULT_SIZE, 391, Short.MAX_VALUE))
-                    .addComponent(crudPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(textCari, javax.swing.GroupLayout.DEFAULT_SIZE, 477, Short.MAX_VALUE))
+                    .addComponent(crudPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -151,11 +98,13 @@ public class InternalFrameProdi extends javax.swing.JInternalFrame {
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(textCari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(crudPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel1, textCari});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
