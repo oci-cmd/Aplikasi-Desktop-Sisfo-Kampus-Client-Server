@@ -64,8 +64,8 @@ public class SystemTrayServer {
         aboutItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.showMessageDialog(null,
-                        "Create By Rosidin\n Kontak : 085721853383\n "
-                        + "FB : bangrosi@yahoo.com\n Cirebon");
+                        "Create By Rosidin\n Kontak : 082240177770\n "
+                        + "FB : rosidin.crb@gmail.com\n Cirebon");
             }
         });
 
