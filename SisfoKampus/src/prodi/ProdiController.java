@@ -4,6 +4,7 @@
  */
 package prodi;
 
+import entity.master.Prodi;
 import java.awt.Component;
 import java.rmi.RemoteException;
 import java.util.logging.Level;

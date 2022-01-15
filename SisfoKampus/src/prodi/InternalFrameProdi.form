@@ -22,11 +22,11 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jScrollPane1" alignment="0" pref="453" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" alignment="0" pref="520" max="32767" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="jLabel1" min="-2" pref="58" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="textCari" pref="391" max="32767" attributes="0"/>
+                      <Component id="textCari" pref="458" max="32767" attributes="0"/>
                   </Group>
                   <Component id="crudPanel" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
@@ -43,7 +43,7 @@
                   <Component id="textCari" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Component id="jScrollPane1" pref="184" max="32767" attributes="0"/>
+              <Component id="jScrollPane1" pref="258" max="32767" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="crudPanel" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>

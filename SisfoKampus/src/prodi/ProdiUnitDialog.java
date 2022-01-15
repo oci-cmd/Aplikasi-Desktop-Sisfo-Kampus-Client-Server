@@ -10,6 +10,7 @@
  */
 package prodi;
 
+import entity.master.Prodi;
 import com.toedter.calendar.JDateChooser;
 import entity.master.Fakultas;
 import java.awt.event.ActionEvent;
